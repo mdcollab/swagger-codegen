@@ -41,7 +41,6 @@ public class JavaArmeriaCodegen extends AbstractJavaCodegen {
 
 
         // FOR NOW!!
-        //modelTemplateFiles.remove("model.mustache");
         apiTestTemplateFiles.remove("api_test.mustache");
         modelDocTemplateFiles.remove("model_doc.mustache");
         apiDocTemplateFiles.remove("api_doc.mustache");
