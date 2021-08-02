@@ -92,6 +92,9 @@ public class JavaArmeriaCodegen extends AbstractJavaCodegen {
             this.setBasePackage((String) additionalProperties.get(BASE_PACKAGE));
         }
 
+        supportingFiles.add(new SupportingFile("README.mustache", "", "README.md"));
+        supportingFiles.add(new SupportingFile("pom.mustache", "", "pom.xml"));
+
         /**
          * We can add these manually as well (dependencies)
         supportingFiles.add(new SupportingFile("pom.mustache", "", "pom.xml"));
