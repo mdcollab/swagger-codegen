@@ -49,6 +49,7 @@ public class JavaArmeriaCodegen extends AbstractJavaCodegen {
         additionalProperties.put(CONFIG_PACKAGE, configPackage);
         additionalProperties.put(BASE_PACKAGE, basePackage);
         additionalProperties.put("java8", true);
+        additionalProperties.put("jackson", "true");
 
         cliOptions.add(new CliOption(TITLE, "server title name or client service name"));
         cliOptions.add(new CliOption(CONFIG_PACKAGE, "configuration package for generated code"));
