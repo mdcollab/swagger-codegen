@@ -54,10 +54,10 @@ public class {{classname}} {{#parent}}extends {{{parent}}}{{/parent}} {{#seriali
   @ApiModelProperty({{#example}}example = "{{{example}}}", {{/example}}{{#required}}required = {{required}}, {{/required}}value = "{{{description}}}")
   @JsonProperty("{{baseName}}")
   public {{{datatypeWithEnum}}} {{#isBoolean}}is{{/isBoolean}}{{getter}}() {
-    return {{name}};
+    return {{baseName}};
   }
-  public void {{setter}}({{{datatypeWithEnum}}} {{name}}) {
-    this.{{name}} = {{name}};
+  public void {{setter}}({{{datatypeWithEnum}}} {{baseName}}) {
+    this.{{baseName}} = {{baseName}};
   }
 
   {{/vars}}
@@ -71,14 +71,14 @@ public class {{classname}} {{#parent}}extends {{{parent}}}{{/parent}} {{#seriali
       return false;
     }
     {{classname}} {{classVarName}} = ({{classname}}) o;{{#hasVars}}
-    return {{#vars}}Objects.equals({{name}}, {{classVarName}}.{{name}}){{#hasMore}} &&
+    return {{#vars}}Objects.equals({{baseName}}, {{classVarName}}.{{baseName}}){{#hasMore}} &&
         {{/hasMore}}{{^hasMore}};{{/hasMore}}{{/vars}}{{/hasVars}}{{^hasVars}}
     return true;{{/hasVars}}
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash({{#vars}}{{name}}{{#hasMore}}, {{/hasMore}}{{/vars}});
+    return Objects.hash({{#vars}}{{baseName}}{{#hasMore}}, {{/hasMore}}{{/vars}});
   }
 
   @Override
@@ -86,7 +86,7 @@ public class {{classname}} {{#parent}}extends {{{parent}}}{{/parent}} {{#seriali
     StringBuilder sb = new StringBuilder();
     sb.append("class {{classname}} {\n");
     {{#parent}}sb.append("    ").append(toIndentedString(super.toString())).append("\n");{{/parent}}
-    {{#vars}}sb.append("    {{name}}: ").append(toIndentedString({{name}})).append("\n");
+    {{#vars}}sb.append("    {{baseName}}: ").append(toIndentedString({{baseName}})).append("\n");
     {{/vars}}sb.append("}");
     return sb.toString();
   }
