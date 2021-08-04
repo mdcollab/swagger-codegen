@@ -24,9 +24,10 @@ dependencies {
     'armeria-tomcat9',
     'armeria-zookeeper3'].each {
     implementation "com.linecorp.armeria:${it}:1.9.2"
+    }
+
     implementation 'io.swagger:swagger-annotations:1.6.2'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.12.4'
-    }
 
     // Logging
     runtimeOnly 'ch.qos.logback:logback-classic:1.2.3'
