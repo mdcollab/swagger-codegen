@@ -13,14 +13,14 @@ import com.linecorp.armeria.server.annotation.*;
 {{#operations}}
 public interface {{classname}} {
 
-    {{#operation}}
+        // Override these methods
 
-        @{{httpMethod}}("{{{path}}})",
-            {{#hasProduces}}
-            produces = { {{#produces}}"{{{mediaType}}}"{{#hasMore}}, {{/hasMore}}{{/produces}} }, {{/hasProduces}}{{#hasConsumes}}
-            consumes = { {{#consumes}}"{{{mediaType}}}"{{#hasMore}}, {{/hasMore}}{{/consumes}} },{{/hasConsumes}}
-            method = RequestMethod.{{httpMethod}})
-        default HttpResponse {{operationId}}({{#allParams}}{{>queryParams}}{{>pathParams}}{{>headerParams}}{{>bodyParams}}{{>formParams}}{{#hasMore}},{{/hasMore}}{{/allParams}}) {
+    {{#operation}}
+        @{{httpMethod}}("{{{path}}}")
+        {{#hasProduces}}
+        @Produces(MediaTypeNames.JSON_UTF_8) {{/hasProduces}}{{#hasConsumes}}
+        @Consumes(MediaTypeNames.JSON_UTF_8){{/hasConsumes}}
+        default HttpResponse {{operationId}}({{#allParams}}{{>queryParams}}{{>pathParams}}{{>headerParams}}{{>bodyParams}}{{>formParams}}{{#hasMore}}, {{/hasMore}}{{/allParams}}) {
             return {{operationId}}({{#allParams}}{{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}});
         }
 

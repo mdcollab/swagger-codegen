@@ -93,10 +93,11 @@ public class JavaArmeriaCodegen extends AbstractJavaCodegen {
         }
 
         supportingFiles.add(new SupportingFile("README.mustache", "", "README.md"));
-        supportingFiles.add(new SupportingFile("pom.mustache", "", "pom.xml"));
+
+        supportingFiles.add(new SupportingFile("build.gradle.mustache", "", "build.gradle"));
+        supportingFiles.add(new SupportingFile("settings.gradle.mustache", "", "settings.gradle"));
 
         /**
-         * We can add these manually as well (dependencies)
         supportingFiles.add(new SupportingFile("pom.mustache", "", "pom.xml"));
         supportingFiles.add(new SupportingFile("README.mustache", "", "README.md"));
          supportingFiles.add(new SupportingFile("build.gradle.mustache", "", "build.gradle"));
