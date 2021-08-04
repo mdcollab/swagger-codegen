@@ -28,8 +28,10 @@ dependencies {
 
     implementation 'io.swagger:swagger-annotations:1.6.2'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.12.4'
+    implementation group: 'com.github.joschi.jackson', name: 'jackson-datatype-threetenbp', version: '2.12.2'
 
-    // Logging
+
+// Logging
     runtimeOnly 'ch.qos.logback:logback-classic:1.2.3'
     runtimeOnly 'org.slf4j:log4j-over-slf4j:1.7.31'
 }
