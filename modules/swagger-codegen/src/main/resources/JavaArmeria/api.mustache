@@ -21,7 +21,7 @@ public interface {{classname}} {
         @Produces(MediaTypeNames.JSON_UTF_8) {{/hasProduces}}{{#hasConsumes}}
         @Consumes(MediaTypeNames.JSON_UTF_8){{/hasConsumes}}
         default HttpResponse {{operationId}}({{#allParams}}{{>queryParams}}{{>pathParams}}{{>headerParams}}{{>bodyParams}}{{>formParams}}{{#hasMore}}, {{/hasMore}}{{/allParams}}) {
-            return {{operationId}}({{#allParams}}{{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}});
+            return HttpResponse.of(HttpStatus.NOT_IMPLEMENTED);
         }
 
     {{/operation}}

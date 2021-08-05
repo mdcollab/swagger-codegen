@@ -14,21 +14,10 @@ public class JavaArmeriaCodegen extends AbstractJavaCodegen {
     public static final String TITLE = "title";
     public static final String CONFIG_PACKAGE = "configPackage";
     public static final String BASE_PACKAGE = "basePackage";
-    public static final String CONTROLLER_ONLY = "controllerOnly";
-    public static final String USE_INTERFACES = "useInterfaces";
-    public static final String HANDLE_EXCEPTIONS = "handleExceptions";
-    public static final String WRAP_CALLS = "wrapCalls";
-    public static final String USE_SWAGGER_UI = "useSwaggerUI";
 
     protected String title = "swagger-petstore";
     protected String configPackage = "io.swagger.configuration";
     protected String basePackage = "io.swagger";
-    protected boolean controllerOnly = false;
-    protected boolean useInterfaces = true;
-    protected boolean useBeanValidation = true;
-    protected boolean handleExceptions = true;
-    protected boolean wrapCalls = true;
-    protected boolean useSwaggerUI = true;
 
     public JavaArmeriaCodegen() {
         super();
@@ -172,27 +161,4 @@ public class JavaArmeriaCodegen extends AbstractJavaCodegen {
         this.basePackage = basePackage;
     }
 
-    public void setControllerOnly(boolean controllerOnly) {
-        this.controllerOnly = controllerOnly;
-    }
-
-    public void setUseInterfaces(boolean useInterfaces) {
-        this.useInterfaces = useInterfaces;
-    }
-
-    public void setUseBeanValidation(boolean useBeanValidation) {
-        this.useBeanValidation = useBeanValidation;
-    }
-
-    public void setHandleExceptions(boolean handleExceptions) {
-        this.handleExceptions = handleExceptions;
-    }
-
-    public void setWrapCalls(boolean wrapCalls) {
-        this.wrapCalls = wrapCalls;
-    }
-
-    public void setUseSwaggerUI(boolean useSwaggerUI) {
-        this.useSwaggerUI = useSwaggerUI;
-    }
 }
