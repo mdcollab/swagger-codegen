@@ -32,7 +32,6 @@ public class KotlinArmeriaCodegen extends AbstractKotlinCodegen {
         apiTemplateFiles.put("api.mustache", ".kt");
 
         // FOR NOW!!
-        modelTemplateFiles.remove("model.mustache");
         apiTestTemplateFiles.remove("api_test.mustache");
         modelDocTemplateFiles.remove("model_doc.mustache");
         apiDocTemplateFiles.remove("api_doc.mustache");
