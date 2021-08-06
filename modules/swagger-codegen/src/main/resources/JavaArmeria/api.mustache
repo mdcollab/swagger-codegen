@@ -16,10 +16,9 @@ public interface {{classname}} {
         // Override these methods
 
     {{#operation}}
-        @{{httpMethod}}("{{{path}}}")
-        {{#hasProduces}}
-        @Produces(MediaTypeNames.JSON_UTF_8) {{/hasProduces}}{{#hasConsumes}}
-        @Consumes(MediaTypeNames.JSON_UTF_8){{/hasConsumes}}
+        @{{httpMethod}}("{{{path}}}"){{#hasProduces}}{{#produces}}
+        @Produces("{{mediaType}}"){{/produces}} {{/hasProduces}}{{#hasConsumes}}{{#consumes}}
+        @Consumes("{{mediaType}}"){{/consumes}}{{/hasConsumes}}
         default HttpResponse {{operationId}}({{#allParams}}{{>queryParams}}{{>pathParams}}{{>headerParams}}{{>bodyParams}}{{>formParams}}{{#hasMore}}, {{/hasMore}}{{/allParams}}) {
             return HttpResponse.of(HttpStatus.NOT_IMPLEMENTED);
         }

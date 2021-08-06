@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class JavaArmeriaCodegen extends AbstractJavaCodegen {
+public class KotlinArmeriaCodegen extends AbstractKotlinCodegen {
 
     public static final String TITLE = "title";
     public static final String CONFIG_PACKAGE = "configPackage";
@@ -19,23 +19,23 @@ public class JavaArmeriaCodegen extends AbstractJavaCodegen {
     protected String configPackage = "io.swagger.configuration";
     protected String basePackage = "io.swagger";
 
-    public JavaArmeriaCodegen() {
+    public KotlinArmeriaCodegen() {
         super();
 
-        outputFolder = "generated-code" + File.separator + "java-armeria";
+        outputFolder = "generated-code" + File.separator + "kotlin-armeria";
         apiTestTemplateFiles.clear();
-        embeddedTemplateDir = templateDir = "JavaArmeria";
+        embeddedTemplateDir = templateDir = "KotlinArmeria";
         apiPackage = "io.swagger.api";
         modelPackage = "io.swagger.model";
-        invokerPackage = "io.swagger.api";
-        artifactId = "swagger-java-armeria";
-
+        artifactId = "swagger-kotlin-armeria";
+        modelTemplateFiles.put("model.mustache", ".kt");
+        apiTemplateFiles.put("api.mustache", ".kt");
 
         // FOR NOW!!
+        modelTemplateFiles.remove("model.mustache");
         apiTestTemplateFiles.remove("api_test.mustache");
         modelDocTemplateFiles.remove("model_doc.mustache");
         apiDocTemplateFiles.remove("api_doc.mustache");
-
 
         additionalProperties.put(CONFIG_PACKAGE, configPackage);
         additionalProperties.put(BASE_PACKAGE, basePackage);
@@ -45,7 +45,6 @@ public class JavaArmeriaCodegen extends AbstractJavaCodegen {
         cliOptions.add(new CliOption(TITLE, "server title name or client service name"));
         cliOptions.add(new CliOption(CONFIG_PACKAGE, "configuration package for generated code"));
         cliOptions.add(new CliOption(BASE_PACKAGE, "base package for generated code"));
-
     }
 
     @Override
@@ -83,19 +82,6 @@ public class JavaArmeriaCodegen extends AbstractJavaCodegen {
         if (additionalProperties.containsKey(BASE_PACKAGE)) {
             this.setBasePackage((String) additionalProperties.get(BASE_PACKAGE));
         }
-
-        supportingFiles.add(new SupportingFile("README.mustache", "", "README.md"));
-
-        supportingFiles.add(new SupportingFile("build.gradle.mustache", "", "build.gradle"));
-        supportingFiles.add(new SupportingFile("settings.gradle.mustache", "", "settings.gradle"));
-
-        /**
-        supportingFiles.add(new SupportingFile("pom.mustache", "", "pom.xml"));
-        supportingFiles.add(new SupportingFile("README.mustache", "", "README.md"));
-         supportingFiles.add(new SupportingFile("build.gradle.mustache", "", "build.gradle"));
-         supportingFiles.add(new SupportingFile("settings.gradle.mustache", "", "settings.gradle"));
-         supportingFiles.add(new SupportingFile("gradle.properties", "", "gradle.properties"));
-         */
     }
 
     @Override
@@ -147,24 +133,35 @@ public class JavaArmeriaCodegen extends AbstractJavaCodegen {
 
     @Override
     public String getName() {
-        return "java-armeria";
+        return "kotlin-armeria";
     }
 
     @Override
     public String getHelp() {
-        return "Generates a Java Armeria Server Application.";
+        return "Generates a kotlin armeria server.";
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
+    public String getConfigPackage() {
+        return configPackage;
+    }
+
     public void setConfigPackage(String configPackage) {
         this.configPackage = configPackage;
+    }
+
+    public String getBasePackage() {
+        return basePackage;
     }
 
     public void setBasePackage(String basePackage) {
         this.basePackage = basePackage;
     }
-
 }
