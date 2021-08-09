@@ -16,11 +16,15 @@ interface {{classname}} {
     // Override these methods
 
     {{#operation}}
-    @{{httpMethod}}("{{{path}}}"){{#hasProduces}}{{#produces}}
-    @Produces("{{mediaType}}"){{/produces}} {{/hasProduces}}{{#hasConsumes}}{{#consumes}}
-    @Consumes("{{mediaType}}"){{/consumes}}{{/hasConsumes}}
+    @{{httpMethod}}("{{{path}}}"){{#hasProduces}}
+    @ProducesGroup({{#produces}}
+        Produces("{{mediaType}}"){{#hasMore}},{{/hasMore}}{{/produces}}
+    ){{/hasProduces}}{{#hasConsumes}}
+    @ConsumesGroup({{#consumes}}
+        Consumes("{{mediaType}}"){{#hasMore}},{{/hasMore}}{{/consumes}}
+    ){{/hasConsumes}}
     suspend fun {{operationId}}({{#allParams}}{{>queryParams}}{{>pathParams}}{{>headerParams}}{{>bodyParams}}{{>formParams}}{{#hasMore}}, {{/hasMore}}{{/allParams}}) : HttpResponse {
-        return HttpResponse.of(HttpStatus.NOT_IMPLEMENTED);
+        return HttpResponse.of(HttpStatus.NOT_IMPLEMENTED)
     }
 
     {{/operation}}

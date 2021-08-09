@@ -81,42 +81,10 @@ public class KotlinArmeriaCodegen extends AbstractKotlinCodegen {
         if (additionalProperties.containsKey(BASE_PACKAGE)) {
             this.setBasePackage((String) additionalProperties.get(BASE_PACKAGE));
         }
-    }
 
-    @Override
-    public void postProcessModelProperty(CodegenModel model, CodegenProperty property) {
-        super.postProcessModelProperty(model, property);
-
-        //Add imports for Jackson
-        if(!BooleanUtils.toBoolean(model.isEnum)) {
-            model.imports.add("JsonProperty");
-
-            if(BooleanUtils.toBoolean(model.hasEnums)) {
-                model.imports.add("JsonValue");
-            }
-        }
-    }
-
-    @Override
-    public Map<String, Object> postProcessModelsEnum(Map<String, Object> objs) {
-        objs = super.postProcessModelsEnum(objs);
-
-        //Add imports for Jackson
-        List<Map<String, String>> imports = (List<Map<String, String>>)objs.get("imports");
-        List<Object> models = (List<Object>) objs.get("models");
-        for (Object _mo : models) {
-            Map<String, Object> mo = (Map<String, Object>) _mo;
-            CodegenModel cm = (CodegenModel) mo.get("model");
-            // for enum model
-            if (Boolean.TRUE.equals(cm.isEnum) && cm.allowableValues != null) {
-                cm.imports.add(importMapping.get("JsonValue"));
-                Map<String, String> item = new HashMap<String, String>();
-                item.put("import", importMapping.get("JsonValue"));
-                imports.add(item);
-            }
-        }
-
-        return objs;
+        supportingFiles.add(new SupportingFile("README.mustache", "", "README.md"));
+        supportingFiles.add(new SupportingFile("build.gradle.mustache", "", "build.gradle"));
+        supportingFiles.add(new SupportingFile("settings.gradle.mustache", "", "settings.gradle"));
     }
 
     @Override
