@@ -25,8 +25,8 @@ public class KotlinArmeriaCodegen extends AbstractKotlinCodegen {
         outputFolder = "generated-code" + File.separator + "kotlin-armeria";
         apiTestTemplateFiles.clear();
         embeddedTemplateDir = templateDir = "KotlinArmeria";
-        apiPackage = "io.swagger.api";
-        modelPackage = "io.swagger.model";
+        //apiPackage = "io.swagger.api";
+        modelPackage = "com.carbonhealth.models";
         artifactId = "swagger-kotlin-armeria";
         modelTemplateFiles.put("model.mustache", ".kt");
         apiTemplateFiles.put("api.mustache", ".kt");
@@ -85,12 +85,6 @@ public class KotlinArmeriaCodegen extends AbstractKotlinCodegen {
         supportingFiles.add(new SupportingFile("README.mustache", "", "README.md"));
         supportingFiles.add(new SupportingFile("build.gradle.mustache", "", "build.gradle"));
         supportingFiles.add(new SupportingFile("settings.gradle.mustache", "", "settings.gradle"));
-    }
-
-    @Override
-    public String toEnumName(CodegenProperty property) {
-        Locale.setDefault(Locale.US);
-        return super.toEnumName(property);
     }
 
     @Override

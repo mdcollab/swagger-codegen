@@ -490,10 +490,24 @@ public class DefaultGenerator extends AbstractGenerator implements Generator {
                 operation.put("basePathWithoutHost", basePathWithoutHost);
                 operation.put("contextPath", contextPath);
                 operation.put("baseName", tag);
+                //operation.put("apiPackage", config.apiPackage() + ".carbonhealth");
                 operation.put("apiPackage", config.apiPackage());
                 operation.put("modelPackage", config.modelPackage());
                 operation.putAll(config.additionalProperties());
-                operation.put("classname", config.toApiName(tag));
+
+                String classname = config.toApiName(tag);
+                StringBuilder sBuilder = new StringBuilder();
+                int classLength = classname.length();
+
+                for ( int i = 0; i < classLength; i++ ) {
+                    char ch = classname.charAt(i);
+
+                    if ( Character.isDigit(ch) ) {
+                        sBuilder.append(classname.substring(i + 1));
+                        break;
+                    }
+                }
+                operation.put("classname", sBuilder.toString());
                 operation.put("classVarName", config.toApiVarName(tag));
                 operation.put("importPath", config.toApiImport(tag));
                 operation.put("classFilename", config.toApiFilename(tag));
@@ -527,7 +541,33 @@ public class DefaultGenerator extends AbstractGenerator implements Generator {
                         continue;
                     }
 
-                    File written = processTemplateToFile(operation, templateName, filename);
+                    StringBuilder sb = new StringBuilder();
+
+                    int index = filename.indexOf("ComCarbonhealth");
+                    int length = filename.length();
+                    sb.append(filename.substring(0, index - 1));
+
+                    for ( int i = index; i < length; i++ ) {
+                        char ch = filename.charAt(i);
+                        if ( !Character.isDigit(ch) ) {
+                            if ( Character.isUpperCase(ch) ) {
+                                sb.append(File.separatorChar);
+                                sb.append(Character.toLowerCase(ch));
+                            }
+                            else {
+                                sb.append(ch);
+                            }
+                        }
+                        else {
+                            sb.append(ch);
+                            sb.append(File.separatorChar);
+                            sb.append(filename.substring(i + 1));
+                            break;
+                        }
+                    }
+
+                    File written = processTemplateToFile(operation, templateName, sb.toString());
+
                     if (written != null) {
                         files.add(written);
                     }
@@ -973,7 +1013,21 @@ public class DefaultGenerator extends AbstractGenerator implements Generator {
     protected Map<String, Object> processOperations(CodegenConfig config, String tag, List<CodegenOperation> ops, List<Object> allModels) {
         Map<String, Object> operations = new HashMap<String, Object>();
         Map<String, Object> objs = new HashMap<String, Object>();
-        objs.put("classname", config.toApiName(tag));
+
+        String classname = config.toApiName(tag);
+        System.out.println(classname);
+        StringBuilder sBuilder = new StringBuilder();
+        int classLength = classname.length();
+
+        for ( int i = 0; i < classLength; i++ ) {
+            char ch = classname.charAt(i);
+
+            if ( Character.isDigit(ch) ) {
+                sBuilder.append(classname.substring(i + 1));
+                break;
+            }
+        }
+        objs.put("classname", sBuilder.toString());
         objs.put("pathPrefix", config.toApiVarName(tag));
 
         // check for operationId uniqueness
@@ -990,7 +1044,30 @@ public class DefaultGenerator extends AbstractGenerator implements Generator {
         objs.put("operation", ops);
 
         operations.put("operations", objs);
-        operations.put("package", config.apiPackage());
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("com");
+
+        int tagLength = tag.length();
+
+        for ( int i = 3; i < tagLength; i++ ) {
+            char ch = tag.charAt(i);
+            if ( !Character.isDigit(ch) ) {
+                if ( Character.isUpperCase(ch) ) {
+                    stringBuilder.append('.');
+                    stringBuilder.append(Character.toLowerCase(ch));
+                }
+                else {
+                    stringBuilder.append(ch);
+                }
+            }
+            else {
+                stringBuilder.append(ch);
+                break;
+            }
+        }
+
+        operations.put("package", config.apiPackage() + stringBuilder.toString());
 
 
         Set<String> allImports = new TreeSet<String>();

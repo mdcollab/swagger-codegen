@@ -16,6 +16,7 @@ interface {{classname}} {
     // Override these methods
 
     {{#operation}}
+    @StatusCode(404)
     @{{httpMethod}}("{{{path}}}"){{#hasProduces}}
     @ProducesGroup({{#produces}}
         Produces("{{mediaType}}"){{#hasMore}},{{/hasMore}}{{/produces}}
@@ -23,9 +24,7 @@ interface {{classname}} {
     @ConsumesGroup({{#consumes}}
         Consumes("{{mediaType}}"){{#hasMore}},{{/hasMore}}{{/consumes}}
     ){{/hasConsumes}}
-    suspend fun {{operationId}}({{#allParams}}{{>queryParams}}{{>pathParams}}{{>headerParams}}{{>bodyParams}}{{>formParams}}{{#hasMore}}, {{/hasMore}}{{/allParams}}) : HttpResponse {
-        return HttpResponse.of(HttpStatus.NOT_IMPLEMENTED)
-    }
+    suspend fun {{operationId}}({{#allParams}}{{>queryParams}}{{>pathParams}}{{>headerParams}}{{>bodyParams}}{{>formParams}}{{#hasMore}}, {{/hasMore}}{{/allParams}}) : {{>returnTypes}}
 
     {{/operation}}
 }

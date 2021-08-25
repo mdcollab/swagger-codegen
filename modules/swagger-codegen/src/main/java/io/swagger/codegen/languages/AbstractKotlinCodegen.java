@@ -376,6 +376,7 @@ public abstract class AbstractKotlinCodegen extends DefaultCodegen implements Co
             modified = sanitizeKotlinSpecificNames(modified);
         }
 
+        /**
         switch (getEnumPropertyNaming()) {
             case original:
                 // NOTE: This is provided as a last-case allowance, but will still result in reserved words being escaped.
@@ -398,6 +399,8 @@ public abstract class AbstractKotlinCodegen extends DefaultCodegen implements Co
                 modified = modified.toUpperCase();
                 break;
         }
+         */
+        modified = modified.toUpperCase();
 
         if (reservedWords.contains(modified)) {
             return escapeReservedWord(modified);
